@@ -1,0 +1,122 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    title Cat Shop
+    // Bootstrap core CSS
+    link(href='vendor/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+    // Custom styles for this template
+    link(href='css/shop-homepage.css', rel='stylesheet')
+  body
+    // Navigation
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
+      .container
+        a.navbar-brand(href='#') Start Bootstrap
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarResponsive', aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
+          span.navbar-toggler-icon
+        #navbarResponsive.collapse.navbar-collapse
+          ul.navbar-nav.ml-auto
+            li.nav-item.active
+              a.nav-link(href='#')
+                | Home
+                span.sr-only (current)
+            li.nav-item
+              a.nav-link(href='#') About
+            li.nav-item
+              a.nav-link(href='#') Services
+            li.nav-item
+              a.nav-link(href='#') Contact
+            li.nav-item
+              a.nav-link(href='#')
+                | Cart 
+                span.badge #{qty_cart}
+    // Page Content
+    .container
+      .row
+        .col-lg-3
+          h1.my-4 Shop Meow
+          .list-group
+            a.list-group-item(href='#') Category 1
+            a.list-group-item(href='#') Category 2
+            a.list-group-item(href='#') Category 3
+        // /.col-lg-3
+        .col-lg-9
+          #carouselExampleIndicators.carousel.slide.my-4(data-ride='carousel')
+            ol.carousel-indicators
+              li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
+              li(data-target='#carouselExampleIndicators', data-slide-to='1')
+              li(data-target='#carouselExampleIndicators', data-slide-to='2')
+            a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev')
+              span.carousel-control-prev-icon(aria-hidden='true')
+              span.sr-only Previous
+            a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next')
+              span.carousel-control-next-icon(aria-hidden='true')
+              span.sr-only Next
+          #search
+            // Search form
+            form.form-inline.d-flex.justify-content-center.md-form.form-sm.mt-0
+              i.fas.fa-search(aria-hidden='true')
+              input.form-control.form-control-sm.ml-3.w-75(type='text', placeholder='Search', aria-label='Search')
+          .row
+            each product in products
+              .col-lg-4.col-md-6.mb-4
+                .card.h-100
+                  a(href= '/product/' + product.id)
+                    img.card-img-top(src= product.image, alt='')
+                  .card-body
+                    h4.card-title
+                      a(href ='/product/' + product.id)= product.name
+                    h5 $24.99
+                    p.card-text
+                      = +"|" + product.description
+                  a.btn.btn-primary(href="/cart/add/"+product.id) Add to cart
+                  .card-footer
+                    small.text-muted ★ ★ ★ ★ ☆
+          // /.row
+          <nav aria-label="...">
+            <ul class="pagination">
+
+              if pageCurrent == 1
+                <li class="page-item disabled">
+                  <a class="page-link" href="products?page=#{pageCurrent - 1}" tabindex="-1">Previous</a>
+                </li>
+              else
+                <li class="page-item">
+                  <a class="page-link" href="products?page=#{pageCurrent - 1}" tabindex="-1">Previous</a>
+                </li>
+              
+              //- <li class="page-item #{(pageCurrent == 1) ? 'disable':''}">
+              //-   <a class="page-link" href="#" tabindex="-1">Previous</a>
+              //- </li>
+
+              - for (var n = 1; n < 6; n++)
+                  if (n == pageCurrent)
+                    <li class="page-item active">
+                      <a class="page-link" href="products?page=#{n}">#{n} <span class="sr-only">(current)</span></a>
+                    </li>
+                  else
+                    <li class="page-item"><a class="page-link" href="products?page=#{n}">#{n}</a></li>
+              if (pageCurrent == pageLast + 1)
+                <li class="page-item disabled">
+                  <a class="page-link" href="#">Next</a>
+                </li>
+              else 
+                <li class="page-item">
+                  <a class="page-link" href="products?page=#{pageCurrent + 1}">Next</a>
+                </li>
+            </ul>
+          </nav>
+        // /.col-lg-9
+        // /.row
+        // /.container
+        // Footer
+        footer.py-5.bg-dark
+          .container
+            p.m-0.text-center.text-white Copyright © Your Website 2019
+          // /.container
+          // Bootstrap core JavaScript
+          script(src='vendor/jquery/jquery.min.js')
+          script(src='vendor/bootstrap/js/bootstrap.bundle.min.js')
